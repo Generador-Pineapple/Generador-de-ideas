@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generador de ideas</title>
+</head>
+
+<body>
+
+    <h1>🎲 Generador de ideas</h1>
+
+    <p>Combina cuatro elementos y crea tu propia historia.</p>
+
+    <button id="botonGenerar" onclick="generar()">🎲 GENERAR</button>
+
+<div id="resultado">
+
+    <div class="tarjeta">
+        <h2>🧑 Personaje <button onclick="cambiarPersonaje()">🔄</button></h2>
+        <p id="personaje">...</p>
+    </div>
+
+    <div class="tarjeta">
+        <h2>📍 Lugar <button onclick="cambiarLugar()">🔄</button></h2>
+        <p id="lugar">...</p>
+    </div>
+
+    <div class="tarjeta">
+        <h2>📦 Objeto <button onclick="cambiarObjeto()">🔄</button></h2>
+        <p id="objeto">...</p>
+    </div>
+
+    <div class="tarjeta">
+        <h2>⚡ Situación <button onclick="cambiarSituacion()">🔄</button></h2>
+        <p id="situacion">...</p>
+    </div>
+
+
+</div>
+<button id="botonCopiar" onclick="copiarCombinacion()">📋 COPIAR COMBINACIÓN</button>
+
+    <script>
+        let personajes = [
+            "Un/a niño/a",
+            "Un/a anciano/a",
+            "Un/a viajero/a",
+            "Un/a detective",
+            "Un/a científico/a",
+            "Un/a artista",
+            "Un/a médico/a",
+            "Un/a ladrón/a",
+            "Un/a maestro/a",
+            "Un/a marinero/a",
+            "Un/a desconocido/a",
+            "Un/a príncipe/princesa",
+            "Un/a brujo/a",
+            "Un/a inventor/a",
+            "Un/a músico/a",
+            "Un/a explorador/a",
+            "Un/a vecino/a",
+            "Un/a fugitivo/a",
+            "Un animal que habla",
+            "Alguien que oculta su identidad"
+
+        ];
+let lugares = [
+    "Un bosque",
+    "Una ciudad",
+    "Una isla",
+    "Una estación",
+    "Una casa abandonada",
+    "Un pueblo pequeño",
+    "Un hospital",
+    "Una biblioteca",
+    "Un cementerio",
+    "Un barco",
+    "Un hotel",
+    "Una escuela",
+    "Una cueva",
+    "Un castillo",
+    "Un mercado",
+    "Una playa",
+    "Un museo",
+    "Una montaña",
+    "Un edificio vacío",
+    "Una estación de servicio"
+];
+let objetos = [
+    "Una llave",
+    "Un reloj",
+    "Una carta",
+    "Un espejo",
+    "Una fotografía",
+    "Una caja",
+    "Un libro",
+    "Una moneda",
+    "Un mapa",
+    "Un juguete",
+    "Una máscara",
+    "Una brújula",
+    "Una vela",
+    "Un teléfono",
+    "Un diario",
+    "Un anillo",
+    "Una botella",
+    "Una pintura",
+    "Una cuchara",
+    "Un objeto envuelto"
+];
+let situaciones = [
+    "Alguien ha desaparecido",
+    "Llega una carta",
+    "Se descubre un secreto",
+    "Algo ha sido robado",
+    "Alguien regresa",
+    "Nadie recuerda al protagonista",
+    "Aparece algo inesperado",
+    "Se pierde el camino",
+    "Algo sale mal de manera inesperada",
+    "Se encuentra una puerta",
+    "Todo cambia de repente",
+    "Llega un desconocido",
+    "Ocurre algo inesperadamente bueno",
+    "Alguien pide ayuda",
+    "Se hace una apuesta",
+    "Algo deja de funcionar",
+    "Hay que llegar a algún lugar antes de cierta hora",
+    "Aparece una oportunidad",
+    "Alguien debe fingir ser otra persona",
+    "Hay que tomar una decisión"
+];
+let ultimoPersonaje = -1;
+let ultimoLugar = -1;
+let ultimoObjeto = -1;
+let ultimaSituacion = -1;
+       function generar() {
+let boton = document.getElementById("botonGenerar");
+
+boton.classList.add("animando");
+
+setTimeout(function() {
+    boton.classList.remove("animando");
+}, 300);
+    let numeroPersonaje;
+let numeroLugar;
+let numeroObjeto;
+let numeroSituacion;
+
+do {
+    numeroPersonaje = Math.floor(Math.random() * personajes.length);
+} while (numeroPersonaje === ultimoPersonaje);
+
+do {
+    numeroLugar = Math.floor(Math.random() * lugares.length);
+} while (numeroLugar === ultimoLugar);
+
+do {
+    numeroObjeto = Math.floor(Math.random() * objetos.length);
+} while (numeroObjeto === ultimoObjeto);
+
+do {
+    numeroSituacion = Math.floor(Math.random() * situaciones.length);
+} while (numeroSituacion === ultimaSituacion);
+ultimoPersonaje = numeroPersonaje;
+ultimoLugar = numeroLugar;
+ultimoObjeto = numeroObjeto;
+ultimaSituacion = numeroSituacion;
+    let personaje = personajes[numeroPersonaje];
+    let lugar = lugares[numeroLugar];
+    let objeto = objetos[numeroObjeto];
+    let situacion = situaciones[numeroSituacion];
+
+    document.getElementById("personaje").textContent = personaje;
+document.getElementById("lugar").textContent = lugar;
+document.getElementById("objeto").textContent = objeto;
+document.getElementById("situacion").textContent = situacion;
+
+let tarjetas = document.querySelectorAll(".tarjeta");
+
+tarjetas.forEach(function(tarjeta) {
+    tarjeta.classList.remove("aparecer");
+
+    void tarjeta.offsetWidth;
+
+    tarjeta.classList.add("aparecer");
+});
+}
+function cambiarPersonaje() {
+    let numero;
+
+    do {
+        numero = Math.floor(Math.random() * personajes.length);
+    } while (numero === ultimoPersonaje);
+
+    ultimoPersonaje = numero;
+
+    document.getElementById("personaje").textContent = personajes[numero];
+animarTarjeta("personaje");
+}
+
+function cambiarLugar() {
+    let numero;
+
+    do {
+        numero = Math.floor(Math.random() * lugares.length);
+    } while (numero === ultimoLugar);
+
+    ultimoLugar = numero;
+
+    document.getElementById("lugar").textContent = lugares[numero];
+animarTarjeta("lugar");
+}
+function cambiarObjeto() {
+    let numero;
+
+    do {
+        numero = Math.floor(Math.random() * objetos.length);
+    } while (numero === ultimoObjeto);
+
+    ultimoObjeto = numero;
+
+    document.getElementById("objeto").textContent = objetos[numero];
+animarTarjeta("objeto");
+}
+function cambiarSituacion() {
+    let numero;
+
+    do {
+        numero = Math.floor(Math.random() * situaciones.length);
+    } while (numero === ultimaSituacion);
+
+    ultimaSituacion = numero;
+
+    document.getElementById("situacion").textContent = situaciones[numero];
+animarTarjeta("situacion");
+}
+function animarTarjeta(id) {
+    let tarjeta = document.getElementById(id).parentElement;
+
+    tarjeta.classList.remove("aparecer");
+
+    void tarjeta.offsetWidth;
+
+    tarjeta.classList.add("aparecer");
+}
+function copiarCombinacion() {
+    let personaje = document.getElementById("personaje").textContent;
+    let lugar = document.getElementById("lugar").textContent;
+    let objeto = document.getElementById("objeto").textContent;
+    let situacion = document.getElementById("situacion").textContent;
+
+    let combinacion =
+        "🧑 Personaje: " + personaje + "\n" +
+        "📍 Lugar: " + lugar + "\n" +
+        "📦 Objeto: " + objeto + "\n" +
+        "⚡ Situación: " + situacion;
+
+    navigator.clipboard.writeText(combinacion);
+
+    let boton = document.getElementById("botonCopiar");
+
+    boton.textContent = "✅ ¡COPIADO!";
+
+    setTimeout(function() {
+        boton.textContent = "📋 COPIAR COMBINACIÓN";
+    }, 1500);
+}
+    </script>
+
+</body>
+  </html>
